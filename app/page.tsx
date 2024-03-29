@@ -6,10 +6,12 @@ import { useMultiplestepForm } from "hooks/useMultiplestepForm";
 import { AnimatePresence } from "framer-motion";
 import UserInfoForm from "@/components/UserInfoForm";
 import PlanForm from "@/components/PlanForm";
-import AddonsForm from "@/components/AddonsForm";
+import UserAddressForm from "@/components/UserAddressForm";
+import TypeMembreForm from "@/components/TypeMembreForm";
 import FinalStep from "@/components/FinalStep";
 import SuccessMessage from "@/components/SuccessMessage";
 import SideBar from "@/components/SideBar";
+import ProfessionalInfoForm from "@/components/ProfessionalInfoForm";
 
 interface AddOn {
   id: number;
@@ -21,8 +23,19 @@ interface AddOn {
 
 export type FormItems = {
   name: string;
+  firstname: string;
   email: string;
   phone: string;
+  country: string;
+  address: string;
+  city: string;
+  zipCode: string;
+  profession: string;
+  position: string;
+  sector: string;
+  employmentType: string;
+  memberType: "projectHolder" | "contributor" | "investor";
+
   plan: "arcade" | "advanced" | "pro";
   yearly: boolean;
   addOns: AddOn[];
@@ -30,6 +43,7 @@ export type FormItems = {
 
 const initialValues: FormItems = {
   name: "",
+  firstname: "",
   email: "",
   phone: "",
   plan: "arcade",
@@ -161,12 +175,24 @@ export default function Home() {
                 />
               )}
               {currentStepIndex === 1 && (
-                <PlanForm key="step2" {...formData} updateForm={updateForm} />
+                <UserAddressForm key="step2" {...formData} updateForm={updateForm} errors={errors} />
               )}
               {currentStepIndex === 2 && (
-                <AddonsForm key="step3" {...formData} updateForm={updateForm} />
+                <ProfessionalInfoForm key="step3" {...formData} updateForm={updateForm} errors={errors} />
               )}
-              {currentStepIndex === 3 && (
+               {currentStepIndex === 3 && (
+                <TypeMembreForm key="step3" {...formData} updateForm={updateForm} />
+              )}
+              {currentStepIndex === 4 && (
+                <TypeMembreForm key="typeMembre" {...formData} updateForm={updateForm} />
+              )}
+               {currentStepIndex === 5 && formData.memberType === "projectHolder" && (
+                  <ProfessionalInfoForm key="professionalInfo" {...formData} updateForm={updateForm} errors={errors} />
+                )}
+                {currentStepIndex === 5 && formData.memberType === "contributor" && (
+                  <ProfessionalInfoForm key="userAddress" {...formData} updateForm={updateForm} errors={errors} />
+                )}
+              {currentStepIndex === 6 && (
                 <FinalStep key="step4" {...formData} goTo={goTo} />
               )}
             </AnimatePresence>
@@ -182,7 +208,7 @@ export default function Home() {
                       : "visible p-0 text-neutral-200 hover:text-white"
                   }`}
                 >
-                  Go Back
+                  Retour
                 </Button>
               </div>
               <div className="flex items-center">
@@ -191,7 +217,7 @@ export default function Home() {
                     type="submit"
                     className="relative text-neutral-200 bg-neutral-900 border border-black/20 shadow-input shadow-black/10 rounded-xl hover:text-white"
                   >
-                    {isLastStep ? "Confirm" : "Next Step"}
+                    {isLastStep ? "Confirm" : "Suivant"}
                   </Button>
                 </div>
               </div>

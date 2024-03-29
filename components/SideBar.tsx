@@ -26,7 +26,7 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
                 show={currentStepIndex === 0}
                 color="#ffe666"
               >
-                Your info
+                Infos
               </RoughNotation>
             </button>
           </li>
@@ -46,7 +46,7 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
                 show={currentStepIndex === 1}
                 color="#bd284d"
               >
-                Select plan
+                Adresse
               </RoughNotation>
             </button>
           </li>
@@ -66,7 +66,7 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
                 show={currentStepIndex === 2}
                 color="#E7B8FF"
               >
-                Add-ons
+                Professionnel 
               </RoughNotation>
             </button>
           </li>
@@ -78,12 +78,32 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
               tabIndex={0}
               onClick={() => goTo(3)}
               className={`text-sm ${
-                currentStepIndex === 3 ? "text-[#6fe79f]" : "text-white"
+                currentStepIndex === 3 ? "text-[#bd284d]" : "text-white"
               } md:text-base`}
             >
               <RoughNotation
                 type="underline"
                 show={currentStepIndex === 3}
+                color="#bd284d"
+              >
+                Adresse
+              </RoughNotation>
+            </button>
+          </li>
+          <li className="flex flex-col items-start font-medium">
+            <span className="hidden text-neutral-500 uppercase text-sm md:flex">
+              step 4
+            </span>
+            <button
+              tabIndex={0}
+              onClick={() => goTo(4)}
+              className={`text-sm ${
+                currentStepIndex === 4 ? "text-[#6fe79f]" : "text-white"
+              } md:text-base`}
+            >
+              <RoughNotation
+                type="underline"
+                show={currentStepIndex === 4}
                 color="#6fe79f"
               >
                 Summary

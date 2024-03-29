@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormItems } from "../app/page";
 
+// Assuming you've added 'firstname' in the FormItems type definition
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;
   errors: Partial<FormItems>;
@@ -10,6 +11,7 @@ type StepProps = FormItems & {
 
 const UserInfoForm = ({
   name,
+  firstname, // Added firstname to the props destructuring
   email,
   phone,
   errors,
@@ -22,13 +24,27 @@ const UserInfoForm = ({
     >
       <div className="w-full flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="firstname">First Name</Label> {/* Added Label for firstname */}
           <Input
             autoFocus
             type="text"
+            name="firstname"
+            id="firstname"
+            placeholder="e.g. John"
+            value={firstname} 
+            onChange={(e) => updateForm({ firstname: e.target.value })}
+            className="w-full"
+            required
+          />
+          {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname}</p>} {/* Display firstname errors */}
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="name">Last Name</Label> {/* Updated Label for name */}
+          <Input
+            type="text"
             name="name"
             id="name"
-            placeholder="e.g. Stephen King"
+            placeholder="e.g. Doe"
             value={name}
             onChange={(e) => updateForm({ name: e.target.value })}
             className="w-full"
@@ -42,15 +58,12 @@ const UserInfoForm = ({
             type="text"
             name="email"
             id="email"
-            placeholder="e.g. stephenking@lorem.com"
+            placeholder="e.g. johndoe@example.com"
             value={email}
-            className="w-full"
             onChange={(e) => updateForm({ email: e.target.value })}
             required
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
-          )}
+          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="phone">Phone Number</Label>
@@ -60,13 +73,10 @@ const UserInfoForm = ({
             id="phone"
             placeholder="e.g. +1 234 567 890"
             value={phone}
-            className="w-full"
             onChange={(e) => updateForm({ phone: e.target.value })}
             required
           />
-          {errors.phone && (
-            <p className="text-red-500 text-sm">{errors.phone}</p>
-          )}
+          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
         </div>
       </div>
     </FormWrapper>
